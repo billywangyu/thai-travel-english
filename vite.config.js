@@ -1,3 +1,3 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-export default defineConfig({ plugins: [vue()], base: '/thai-travel-english/' })
+export default defineConfig({ plugins: [vue()], base: '' })
