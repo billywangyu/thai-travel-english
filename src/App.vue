@@ -70,7 +70,7 @@ const leftWords = computed(()=>totalWords.value-doneWords.value)
 const totalPercent = computed(()=>totalWords.value?Math.round(doneWords.value/totalWords.value*100):0)
 
 const loadData = async ()=>{
-  const res = await fetch('/allData.json')
+  const res = await fetch('/thai-travel-english/allData.json')
   list.value = await res.json()
 }
 const loadMaster = ()=>{
