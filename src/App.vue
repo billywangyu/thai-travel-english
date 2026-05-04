@@ -93,22 +93,6 @@ const updateDark = ()=>{
   document.documentElement.classList.toggle('dark',isDark.value)
 }
 
-// 1. 页面初始化读取本地进度
-const learnedIds = ref(getStorage('thai_learned_ids') ?? [])
-
-// 2. 标记已学 / 取消已学
-const toggleLearn = (id) => {
-  const idx = learnedIds.value.indexOf(id)
-  if (idx > -1) {
-    learnedIds.value.splice(idx, 1)
-  } else {
-    learnedIds.value.push(id)
-  }
-  // 立刻持久化到本地
-  setStorage('thai_learned_ids', learnedIds.value)
-}
-
-
 const open = idx=>{
   cateIndex = idx
   wordIndex = masterArr[idx]||0
