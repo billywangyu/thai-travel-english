@@ -8,9 +8,9 @@
     </div>
 
     <div class="card-list">
-      <div 
-        v-for="item in wordList" 
-        :key="item.id" 
+      <div
+        v-for="item in wordList"
+        :key="item.id"
         class="card"
         :class="{ learned: isLearned(item.id) }"
         @click="toggleLearned(item.id)"
@@ -24,15 +24,19 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { setLocal, getLocal } from './utils/storage.js'
 
-// 数据列表
+// 本地持久化（直接写在里面，不依赖任何文件）
+const getLocal = (key) => {
+  const data = localStorage.getItem(key)
+  return data ? JSON.parse(data) : null
+}
+const setLocal = (key, val) => {
+  localStorage.setItem(key, JSON.stringify(val))
+}
+
+// 数据
 const wordList = ref([])
-
-// 本地持久化：已学习单词
 const learnedIds = ref(getLocal('thai_learned') || [])
-
-// 本地持久化：暗黑模式
 const darkMode = ref(getLocal('thai_dark') || false)
 
 // 切换暗黑
@@ -42,7 +46,7 @@ const toggleDark = () => {
   document.documentElement.classList.toggle('dark', darkMode.value)
 }
 
-// 标记已学 / 取消
+// 标记已学
 const toggleLearned = (id) => {
   const idx = learnedIds.value.indexOf(id)
   if (idx > -1) {
@@ -53,12 +57,9 @@ const toggleLearned = (id) => {
   setLocal('thai_learned', learnedIds.value)
 }
 
-// 判断是否已学
-const isLearned = (id) => {
-  return learnedIds.value.includes(id)
-}
+const isLearned = (id) => learnedIds.value.includes(id)
 
-// 加载数据（路径 100% 正确）
+// 加载数据（绝对正确路径）
 const loadData = async () => {
   try {
     const res = await fetch('/thai-travel-english/allData.json')
@@ -68,7 +69,6 @@ const loadData = async () => {
   }
 }
 
-// 初始化
 onMounted(() => {
   document.documentElement.classList.toggle('dark', darkMode.value)
   loadData()
@@ -85,7 +85,6 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 .dark-btn {
   padding: 8px 12px;
@@ -97,12 +96,13 @@ onMounted(() => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  margin-top: 20px;
 }
 .card {
   padding: 20px;
   border-radius: 12px;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 }
 .card.learned {
@@ -111,11 +111,11 @@ onMounted(() => {
 .en {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 8px;
 }
 .cn {
   font-size: 14px;
   color: #666;
+  margin-top: 6px;
 }
 
 .dark {
