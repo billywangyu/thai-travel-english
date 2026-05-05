@@ -59,13 +59,14 @@ const toggleLearned = (id) => {
 
 const isLearned = (id) => learnedIds.value.includes(id)
 
-// 加载数据（绝对正确路径）
-const loadData = async () => {
+// 加载数据（绝对正确路径）const loadData = async () => {
   try {
-    const res = await fetch('/thai-travel-english/allData.json')
+    // 就这一行！改成相对路径！
+    const res = await fetch('./allData.json')
     wordList.value = await res.json()
+    console.log('✅ 数据加载成功', wordList.value)
   } catch (err) {
-    console.error('加载失败', err)
+    console.error('❌ 加载失败', err)
   }
 }
 
