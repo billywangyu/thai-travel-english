@@ -160,4 +160,19 @@ git push origin master
 3. 重新提交
 4. **强制推成功，不再报错！**
 
+# 1. 进入本地仓库，备份最新代码（同上）
+cd 你的仓库本地路径
+git branch backup-latest
+# 2. 新建无历史记录的空白分支
+git checkout --orphan new-latest
+# 3. 添加当前所有最新有效文件
+git add -A
+# 4. 提交最新代码（仅这一次提交）
+git commit -m "仅保留最新版本，删除所有过期推送记录"
+# 5. 删除原主分支（如 main/master）
+git branch -D 原分支名（如main）
+# 6. 将新空白分支重命名为原主分支名
+git branch -m new-latest 原分支名（如main）
+# 7. 强制推送至远程，彻底覆盖，仅留最新提交
+git push -f origin 原分支名（如main）
 
