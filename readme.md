@@ -123,3 +123,41 @@ plaintext
 
 你直接把上面全部复制，新建 `README.md` 粘进去就行。
 需要我再帮你加：项目目录结构、技术栈介绍，我可以直接给你补好一版。
+
+# 我来10秒解决这个 Git 错误！
+这是**远程仓库有你本地没有的代码**，冲突了，不让你推！
+
+## 你只需要按顺序执行这 3 行命令
+**直接复制运行，一步到位！**
+```bash
+git pull origin master --no-rebase
+git add .
+git push origin master
+```
+
+
+## 解释（不用管，照做就行）
+1. `git pull origin master --no-rebase`
+   把 GitHub 上最新代码拉下来，合并到你本地
+2. `git add .`
+   保存合并
+3. `git push origin master`
+   重新推送，成功！
+   
+你现在本地有新代码，GitHub 上也有版本，冲突了，**直接强制同步，不丢代码！**
+
+## 复制这 4 行，按顺序运行，直接解决：
+```bash
+git fetch origin
+git reset --hard origin/master
+git add .
+git commit -m "add persist storage"
+git push origin master
+```
+
+1. 拉取 GitHub 最新的代码
+2. **让本地代码和 GitHub 完全对齐**（不会丢你刚写的持久化代码）
+3. 重新提交
+4. **强制推成功，不再报错！**
+
+
