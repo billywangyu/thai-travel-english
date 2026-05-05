@@ -12,13 +12,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-
 const wordList = ref([])
 
-// 加载数据（线上绝对正确）
 async function loadData() {
   try {
-    const res = await fetch('./allData.json')
+    const res = await fetch('/allData.json')
     const data = await res.json()
     wordList.value = data
   } catch (err) {
@@ -26,9 +24,7 @@ async function loadData() {
   }
 }
 
-onMounted(() => {
-  loadData()
-})
+onMounted(() => loadData())
 </script>
 
 <style scoped>
@@ -49,13 +45,6 @@ onMounted(() => {
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.en {
-  font-size: 18px;
-  font-weight: bold;
-}
-.cn {
-  font-size: 14px;
-  color: #666;
-  margin-top: 6px;
-}
+.en { font-size: 18px; font-weight: bold; }
+.cn { font-size: 14px; color: #666; margin-top: 6px; }
 </style>
